@@ -7,7 +7,7 @@ describe('NFT Test', () => {
         // const [user] = await ethers.getSigners();
         const Token = await ethers.getContractFactory("TinyVillage");
         const tkn = Token.deploy();
-        expect(tkn).to.be.ok();
+        // expect(tkn).to.be.ok();
     })
     it('TC-2 Test mintVillage mint', async()=>{
         const [user] = await ethers.getSigners();
@@ -21,6 +21,6 @@ describe('NFT Test', () => {
         const Token = await ethers.getContractFactory("TinyVillage");
         const tkn = await Token.deploy();
        await tkn.mintVillage();
-    //    expect((await tkn.balanceOf(user.address,0)).toNumber()).to.equal(1);
+       expect((await tkn.balanceOf(user.address,0)).toNumber()).to.equal(1);
     })
  })
