@@ -6,8 +6,8 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract QuoteNFT is ERC721URIStorage {
     uint256 private _tokenId = 0;
-    string private name;
-    string private symbol;
+    string private _name;
+    string private _symbol;
     address private owner;
     string private baseExtension;
 
@@ -16,16 +16,21 @@ contract QuoteNFT is ERC721URIStorage {
         _;
     }
 
+// call setApprovalForAll while working with a MarketPlace, operator addr = MarketPlace addr.
+
     // give base extension without baseUri
     constructor(
         string memory name_,
-        string memory symbol_,
-        string memory _baseExtension
+        string memory symbol_
     ) ERC721(name_, symbol_) {
-        name = name_;
-        symbol = symbol_;
+        _name = name_;
+        _symbol = symbol_;
         owner = msg.sender;
-        baseExtension = _baseExtension;
+        // baseExtension = _baseExtension;
+    }
+
+    function setBaseExtension(string memory ext) external{
+        baseExtension = ext;
     }
 
     function mint() public onlyOwner(msg.sender) {
