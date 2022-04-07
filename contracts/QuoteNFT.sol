@@ -16,8 +16,6 @@ contract QuoteNFT is ERC721URIStorage {
         _;
     }
 
-// call setApprovalForAll while working with a MarketPlace, operator addr = MarketPlace addr.
-
     // give base extension without baseUri
     constructor(
         string memory name_,
@@ -40,8 +38,8 @@ contract QuoteNFT is ERC721URIStorage {
         _tokenId++;
     }
 
-    // https://ipfs.io/ipfs/Qmba8o49D2ycRRUNVPdVBgtkF4XiBRAKQ1e4eqJTUHWMrb?filename=NFT1.png
     // method overriden to provide my NFT sharable link as baseURI
+
     function _baseURI() internal view virtual override returns (string memory) {
         string memory baseIPFS = "https://ipfs.io/ipfs/";
         // string memory URI = string(abi.encodePacked(baseIPFS, baseExtension));
