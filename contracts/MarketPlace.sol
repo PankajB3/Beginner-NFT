@@ -19,6 +19,7 @@ contract MarketPlace {
 
     // mapping to track market items
     marketItem[] private marketIndex;
+
     // mapping(uint256 => marketItem) private marketIndex;
 
     constructor() {}
@@ -41,14 +42,13 @@ contract MarketPlace {
         IERC721(nftToken).setApprovalForAll(address(this), true);
     }
 
-    function buyNft(uint256 _tokenId) external payable{
+    function buyNft(uint256 _tokenId) external payable {
         // require(_exists(_tokenId),"Token ID does not exist");
         marketItem memory m = exist(_tokenId);
         // require(m);
-       (bool f,) =  m.creator.call{value:m.price}("");
-
-       require(f,"Payment failed");
-
+        (bool f, ) = m.creator.call{value: m.price}("");
+        require(f, "Payment failed");
+        IERC721(m.nftToken).transferFrom(m.creator, m.buyer, m.tokenId);
     }
 
     function exist(uint256 _tId) internal view returns (marketItem memory) {
